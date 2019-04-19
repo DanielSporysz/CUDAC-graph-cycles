@@ -1,23 +1,36 @@
 #pragma once
 #include <string>
 #include <iostream>
-#include <vector>
+#include <array>
 #include "GraphReader.h"
 #include "Controller.h"
 
- int main(int argc, char *argv[]) {
-	 // configuration
-	 std::string graphFileName = "./Resources/GraphFileTemplate.txt";
-	 if (argc >= 2) {
-		 graphFileName = argv[1];
-	 }
+config_t readInputArguments(int argc, char *argv[]) {
+	config_t config;
 
-	 std::cout << "Reading from a file: " << graphFileName << std::endl;
+	if (argc >= 2) {
+		config.fileName = argv[1];
+	}
+	else {
+		config.fileName = "./Resources/GraphFileTemplate.txt";
+	}
 
-	 // reading
-	 std::vector<std::vector<int>> matrix = readGraphFile(graphFileName);
-	 printMatrix(matrix);
+	return config;
+}
 
-	 system("pause");
-	 return 0;
+int main(int argc, char *argv[]) {
+	// Reading configuration && Data preparation
+	config_t config = readInputArguments(argc, argv);
+	std::cout << "Reading from a file: " << config.fileName << std::endl; // DEBUG info
+
+	int **matrix = readGraphFile(config);
+	printMatrix(matrix, config); // DEBUG info
+
+	// Analysis | Cycles detection
+	// TO DO
+
+	// Clean up and exit
+	freeMatrix(matrix, config);
+	system("pause");
+	return 0;
 }

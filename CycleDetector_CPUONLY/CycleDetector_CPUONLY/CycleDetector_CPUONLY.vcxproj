@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Analyzer.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="GraphReader.cpp" />
   </ItemGroup>

@@ -1,4 +1,6 @@
 #pragma once
+#include "Controller.h"
 
-std::vector<std::vector<int>> readGraphFile(std::string graphFileName);
-void printMatrix(std::vector<std::vector<int>> matrix);
+int** readGraphFile(config_t &config);
+void printMatrix(int** matrix, config_t config);
+void freeMatrix(int** matrix, config_t config);
