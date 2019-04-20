@@ -1,4 +1,7 @@
 #pragma once
+#include <string>
+#include <vector>
+#include <list>
 
 struct config_t {
 	std::string fileName;
@@ -12,3 +15,4 @@ enum markings
 };
 
 int main(int argc, char * argv[]);
+config_t readInputArguments(int argc, char *argv[]);

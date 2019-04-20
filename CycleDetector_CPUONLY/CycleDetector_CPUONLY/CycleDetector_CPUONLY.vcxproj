@@ -24,6 +24,7 @@
     <ClCompile Include="GraphReader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Analyzer.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="GraphReader.h" />
   </ItemGroup>

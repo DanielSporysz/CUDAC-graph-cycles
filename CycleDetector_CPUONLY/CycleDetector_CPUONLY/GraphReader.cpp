@@ -65,7 +65,7 @@ void printMatrix(int** matrix, config_t config) {
 	for (int i = 0; i < config.matrixSize; i++) {
 		for (int j = 0; j < config.matrixSize; j++)
 		{
-			std::cout << matrix[j][i] << " ";
+			std::cout << matrix[i][j] << " ";
 		}
 		std::cout << std::endl;
 	}

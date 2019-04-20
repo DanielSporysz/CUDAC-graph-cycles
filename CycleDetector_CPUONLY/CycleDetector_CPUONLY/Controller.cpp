@@ -2,8 +2,11 @@
 #include <string>
 #include <iostream>
 #include <array>
+#include <list>
+#include <vector>
 #include "GraphReader.h"
 #include "Controller.h"
+#include "Analyzer.h"
 
 config_t readInputArguments(int argc, char *argv[]) {
 	config_t config;
@@ -19,7 +22,7 @@ config_t readInputArguments(int argc, char *argv[]) {
 }
 
 int main(int argc, char *argv[]) {
-	// Reading configuration && Data preparation
+	// Reading the configuration && Data preparation
 	config_t config = readInputArguments(argc, argv);
 	std::cout << "Reading from a file: " << config.fileName << std::endl; // DEBUG info
 
@@ -27,7 +30,12 @@ int main(int argc, char *argv[]) {
 	printMatrix(matrix, config); // DEBUG info
 
 	// Analysis | Cycles detection
-	// TO DO
+	std::list<std::vector<int>> cycles;
+	cycles = findCycles(matrix, config);
+
+	// Results output
+	std::cout << "The graph contains " << cycles.size() << " cycles." << std::endl;
+	printCycles(cycles); //DEBUG info
 
 	// Clean up and exit
 	freeMatrix(matrix, config);
