@@ -5,7 +5,7 @@
 #include <vector>
 #include <vector>
 #include <iostream>
-
+/*
 std::list<std::vector<int>> template_findCycles(int** matrix, config_t config) {
 	std::list<std::vector<int>> cycles;
 
@@ -78,4 +78,4 @@ void printCycles(std::list<std::vector<int>> cycles) {
 
 		std::cout << std::endl;
 	}
-}
+}*/

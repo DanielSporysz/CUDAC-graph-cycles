@@ -6,26 +6,9 @@
 #include "list"
 #include <iostream>
 
-struct cycles_t {
-	int* paths;
-	int* pathSizes;
-	int pathsCount;
-};
+__device__ int* d_array;
 
-__global__ void searchFrom();
-
-std::list<std::vector<int>> findCycles(int* matrix, config_t config) {
-	std::list<std::vector<int>> cycles;
-
-	dim3 block(8, 8, 8);
-	dim3 grid(16,16);
-
-	searchFrom<<<block, grid>>>();
-
-	return cycles;
-}
-
-__global__ void searchFrom() {
+__global__ void searchFrom(int* adr, int testSize) {
 	int threadsPerBlock = blockDim.x * blockDim.y * blockDim.z;
 	int threadPosInBlock = threadIdx.x +
 		blockDim.x * threadIdx.y +
@@ -35,5 +18,32 @@ __global__ void searchFrom() {
 		gridDim.x * gridDim.y * blockIdx.z;
 	int tid = blockPosInGrid * threadsPerBlock + threadPosInBlock;
 
-	// TODO
+	if (tid < testSize) {
+		adr[tid] = 1;
+	}
+}
+
+std::list<std::vector<int>> findCycles(int* matrix, config_t config) {
+	std::list<std::vector<int>> cycles;
+
+	dim3 block(8, 8, 8);
+	dim3 grid(16,16);
+	int testSize = 5;
+
+	cudaMalloc(&d_array, testSize * sizeof(int));
+	int* d_adr;
+	cudaGetSymbolAddress((void**)&d_adr, d_array);
+
+	searchFrom<<<block, grid>>>(d_adr, testSize);
+	cudaDeviceSynchronize();
+
+	int* array = (int*)malloc(testSize * sizeof(int));
+	cudaMemcpyFromSymbol(array, d_array, testSize*sizeof(int));
+
+	for (int i = 0; i < testSize; i++)
+	{
+		std::cout << "Array at " << i << " is " << array[i] << std::endl;
+	}
+
+	return cycles;
 }
