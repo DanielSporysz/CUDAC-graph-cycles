@@ -88,6 +88,8 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="cudaAnalyzer.h" />
     <ClInclude Include="GraphReader.h" />
+    <ClInclude Include="PathsContainer.h" />
+    <ClInclude Include="stack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Analyzer.cpp" />

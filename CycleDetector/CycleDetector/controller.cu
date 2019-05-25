@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 
 	// Analysis | Cycles detection
 	std::list<std::vector<int>> cycles;
-	cycles = findCycles(matrix, config);
+	cycles = findCycles(matrix, config); //NOT READY, TODO
 
 	// Results output TODO
 	std::cout << "The graph contains " << cycles.size() << " cycles." << std::endl;
@@ -39,6 +39,5 @@ int main(int argc, char *argv[]) {
 
 	// Clean up and exit
 	freeMatrix(matrix, config);
-	system("pause");
 	return 0;
 }
