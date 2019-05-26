@@ -3,7 +3,7 @@
 #include "cuda_runtime.h"
 #include <iostream>
 
-__device__ int DEFAULT_STACK_SIZE = 2;
+__device__ const int DEFAULT_STACK_SIZE = 64;
 
 class Stack {
 public:
@@ -29,9 +29,7 @@ public:
 
 			size *= 2;
 		}
-		printf("Pushing %i", o);
 		path[count++] = o;
-		printf(" the count is %i\n", count);
 	}
 
 	__device__ int pop(void) {

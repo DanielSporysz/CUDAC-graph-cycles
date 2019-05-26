@@ -16,14 +16,14 @@ int* readGraphFile(config_t &config) {
 	{
 		totalLinesCount++;
 	}
-	config.matrixSize = totalLinesCount;
+	config.verticesCount = totalLinesCount;
 
 	// Matrix (as an array) generation
-	int* matrix = (int*)malloc(config.matrixSize * config.matrixSize * sizeof(int*));
-	for (int i = 0; i < config.matrixSize; i++)
+	int* matrix = (int*)malloc(config.verticesCount * config.verticesCount * sizeof(int*));
+	for (int i = 0; i < config.verticesCount; i++)
 	{
-		for (int j = 0; j < config.matrixSize; j++) {
-			matrix[i*config.matrixSize + j] = disconnected;
+		for (int j = 0; j < config.verticesCount; j++) {
+			matrix[i*config.verticesCount + j] = disconnected;
 		}
 	}
 
@@ -39,7 +39,7 @@ int* readGraphFile(config_t &config) {
 		for (std::sregex_iterator it(line.begin(), line.end(), rgx), it_end; it != it_end; ++it) {
 			try {
 				int number = std::stoi((*it)[0]);
-				matrix[lineIndex * config.matrixSize + number] = connected;
+				matrix[lineIndex * config.verticesCount + number] = connected;
 			}
 			catch (std::invalid_argument e) {
 				std::cerr << "Invalid index of vertex in line: " << lineIndex << std::endl;
@@ -56,12 +56,12 @@ void freeMatrix(int* matrix, config_t config) {
 }
 
 void printMatrix(int* matrix, config_t config) {
-	std::cout << "Printing the matrix of " << config.matrixSize << " verticles." << std::endl;
+	std::cout << "Printing the matrix of " << config.verticesCount << " verticles." << std::endl;
 
-	for (int i = 0; i < config.matrixSize; i++) {
-		for (int j = 0; j < config.matrixSize; j++)
+	for (int i = 0; i < config.verticesCount; i++) {
+		for (int j = 0; j < config.verticesCount; j++)
 		{
-			std::cout << matrix[i * config.matrixSize + j] << " ";
+			std::cout << matrix[i * config.verticesCount + j] << " ";
 		}
 		std::cout << std::endl;
 	}

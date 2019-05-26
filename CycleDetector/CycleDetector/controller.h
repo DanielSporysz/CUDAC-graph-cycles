@@ -5,7 +5,7 @@
 
 struct config_t {
 	std::string fileName;
-	int matrixSize;
+	int verticesCount;
 };
 
 enum markings

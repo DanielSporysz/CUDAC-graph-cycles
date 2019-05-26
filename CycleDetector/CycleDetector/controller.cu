@@ -21,6 +21,16 @@ config_t readInputArguments(int argc, char *argv[]) {
 	return config;
 }
 
+void printCycles(std::list<std::vector<int>> cycles) {
+	for (std::vector<int> cycle : cycles) {
+		for (int i = 0; i < cycle.size() - 1; i++)
+		{
+			std::cout << cycle.at(i) << "->";
+		}
+		std::cout << cycle.at(cycle.size() - 1) << std::endl;
+	}
+}
+
 int main(int argc, char *argv[]) {
 	// Reading the configuration && Data preparation
 	config_t config = readInputArguments(argc, argv);
@@ -33,9 +43,9 @@ int main(int argc, char *argv[]) {
 	std::list<std::vector<int>> cycles;
 	cycles = findCycles(matrix, config); //NOT READY, TODO
 
-	// Results output TODO
+	// Results output
 	std::cout << "The graph contains " << cycles.size() << " cycles." << std::endl;
-	// TprintCycles(cycles); //DEBUG info TODO
+	printCycles(cycles); // DEBUG  info
 
 	// Clean up and exit
 	freeMatrix(matrix, config);

@@ -17,7 +17,6 @@ public:
 	}
 
 	__device__ void addPath(int* pathToAdd, int sizeToAdd) {
-		printf("I am %i long and I have to fit %i\n", size, sizeToAdd);
 		int* newPaths = (int*)malloc((size + sizeToAdd) * sizeof *paths);
 
 		memcpy(newPaths, paths, size * sizeof *paths);

@@ -5,11 +5,11 @@
 #include <vector>
 #include <vector>
 #include <iostream>
-/*
-std::list<std::vector<int>> template_findCycles(int** matrix, config_t config) {
+
+/*std::list<std::vector<int>> template_findCycles(int** matrix, config_t config) {
 	std::list<std::vector<int>> cycles;
 
-	for (int i = 0; i < config.matrixSize; i++)
+	for (int i = 0; i < config.verticesCount; i++)
 	{
 		searchFrom(i, &cycles, matrix, config);
 	}
@@ -21,8 +21,8 @@ void searchFrom(int start, std::list<std::vector<int>> *cycles, int** matrix, co
 	// Data preparation
 	std::vector<int> path;
 
-	int* visitedVerticles = (int*)malloc(config.matrixSize * sizeof(int));
-	for (int i = 0; i < config.matrixSize; i++) {
+	int* visitedVerticles = (int*)malloc(config.verticesCount * sizeof(int));
+	for (int i = 0; i < config.verticesCount; i++) {
 		visitedVerticles[i] = notVisited;
 	}
 
@@ -35,7 +35,7 @@ void visitVertex(int toVisit, int destination, int* visitedVerticles, std::vecto
 	path.push_back(toVisit);
 	visitedVerticles[toVisit] = visited;
 
-	for (int i = 0; i < config.matrixSize; i++)
+	for (int i = 0; i < config.verticesCount; i++)
 	{
 		if (matrix[toVisit][i] == connected) {
 			if (i == destination) { // Found the destination
