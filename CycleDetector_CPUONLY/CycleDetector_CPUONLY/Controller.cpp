@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 	config_t config = readInputArguments(argc, argv);
 	std::cout << "Reading from a file: " << config.fileName << std::endl; // DEBUG info
 
-	int **matrix = readGraphFile(config);
+	int *matrix = readGraphFile(config);
 	printMatrix(matrix, config); // DEBUG info
 
 	// Analysis | Cycles detection
@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 	printCycles(cycles); //DEBUG info
 
 	// Clean up and exit
-	freeMatrix(matrix, config);
+	free(matrix);
 	system("pause");
 	return 0;
 }

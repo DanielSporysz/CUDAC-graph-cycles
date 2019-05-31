@@ -6,7 +6,7 @@
 #include <vector>
 #include <iostream>
 
-std::list<std::vector<int>> findCycles(int** matrix, config_t config) {
+std::list<std::vector<int>> findCycles(int* matrix, config_t config) {
 	std::list<std::vector<int>> cycles;
 	std::list<std::vector<int>> *pCycles = &cycles;
 
@@ -18,7 +18,7 @@ std::list<std::vector<int>> findCycles(int** matrix, config_t config) {
 	return cycles;
 }
 
-void searchFrom(int start, std::list<std::vector<int>> *cycles, int** matrix, config_t config) {
+void searchFrom(int start, std::list<std::vector<int>> *cycles, int* matrix, config_t config) {
 	// Data preparation
 	std::vector<int> path;
 
@@ -32,13 +32,13 @@ void searchFrom(int start, std::list<std::vector<int>> *cycles, int** matrix, co
 	free(visitedVerticles);
 }
 
-void visitVertex(int toVisit, int destination, int* visitedVerticles, std::vector<int> path, std::list<std::vector<int>> *cycles, int** matrix, config_t config) {
+void visitVertex(int toVisit, int destination, int* visitedVerticles, std::vector<int> path, std::list<std::vector<int>> *cycles, int* matrix, config_t config) {
 	path.push_back(toVisit);
 	visitedVerticles[toVisit] = visited;
 
 	for (int i = 0; i < config.matrixSize; i++)
 	{
-		if (matrix[toVisit][i] == connected) {
+		if (matrix[toVisit * config.matrixSize + i] == connected) {
 			if (i == destination) { // Found the destination
 				path.push_back(destination);
 				addToCycles(path, cycles);
