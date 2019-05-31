@@ -7,9 +7,6 @@
     <CudaCompile Include="cudaAnalyzer.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
-    <CudaCompile Include="kernel.cu">
-      <Filter>Resources</Filter>
-    </CudaCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">
@@ -28,21 +25,10 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Analyzer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Analyzer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cudaAnalyzer.h">
@@ -54,5 +40,13 @@
     <ClInclude Include="PathsContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Graph IO Utilities\GraphReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Graph IO Utilities\GraphReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,22 +4,9 @@
 #include <array>
 #include <list>
 #include <vector>
-#include "graphReader.h"
+#include "../Graph IO Utilities/GraphReader.h"
 #include "controller.h"
 #include "cudaAnalyzer.h"
-
-config_t readInputArguments(int argc, char *argv[]) {
-	config_t config;
-
-	if (argc >= 2) {
-		config.fileName = argv[1];
-	}
-	else {
-		config.fileName = "./Resources/GraphFileTemplate.txt";
-	}
-
-	return config;
-}
 
 void printCycles(std::list<std::vector<int>> cycles) {
 	for (std::vector<int> cycle : cycles) {
@@ -32,22 +19,24 @@ void printCycles(std::list<std::vector<int>> cycles) {
 }
 
 int main(int argc, char *argv[]) {
-	// Reading the configuration && Data preparation
-	config_t config = readInputArguments(argc, argv);
-	std::cout << "Reading from a file: " << config.fileName << std::endl; // DEBUG info
+	// Confugration
+	std::string defaultFileName = "./Resources/GraphFileTemplate.txt";;
 
-	int *matrix = readGraphFile(config);
-	printMatrix(matrix, config); // DEBUG info
+	// Graph read
+	std::cout << "Reading from a file: " << defaultFileName << std::endl; // DEBUG info
+	config_t* config = readGraphFile(defaultFileName);
 
 	// Analysis | Cycles detection
 	std::list<std::vector<int>> cycles;
-	cycles = findCycles(matrix, config); //NOT READY, TODO
+	cycles = findCycles(config->matrix, *config);
 
 	// Results output
 	std::cout << "The graph contains " << cycles.size() << " cycles." << std::endl;
 	printCycles(cycles); // DEBUG  info
 
 	// Clean up and exit
-	freeMatrix(matrix, config);
+	delete config->fileName;
+	free(config->matrix);
+	free(config);
 	return 0;
 }

@@ -15,6 +15,7 @@
     <RootNamespace>CycleDetector</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <CudaToolkitCustomDir>..\..\..\..\..\..\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1</CudaToolkitCustomDir>
+    <ProjectName>CUDA CycleDetector</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -81,22 +82,20 @@
   <ItemGroup>
     <CudaCompile Include="controller.cu" />
     <CudaCompile Include="cudaAnalyzer.cu" />
-    <CudaCompile Include="kernel.cu" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Graph IO Utilities\GraphReader.h" />
     <ClInclude Include="Analyzer.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="cudaAnalyzer.h" />
-    <ClInclude Include="GraphReader.h" />
     <ClInclude Include="PathsContainer.h" />
     <ClInclude Include="stack.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Analyzer.cpp" />
-    <ClCompile Include="GraphReader.cpp" />
+    <Text Include="Resources\GraphFileTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Resources\GraphFileTemplate.txt" />
+    <ClCompile Include="..\Graph IO Utilities\GraphReader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

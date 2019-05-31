@@ -7,6 +7,7 @@
 
 #include <iostream>
 
+#include "../Graph IO Utilities/GraphReader.h"
 #include "vector"
 #include "list"
 #include "stack.h"
@@ -23,7 +24,7 @@ inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort =
 	}
 }
 
-__device__ void visitVertex(int toVisit, int destination , Stack* path, int* visitedVertices, PathsContainer* cycles, int* matrix, int count) {
+__device__ void visitVertex(int toVisit, int destination, Stack* path, int* visitedVertices, PathsContainer* cycles, int* matrix, int count) {
 	path->push(toVisit);
 	visitedVertices[toVisit] = visited;
 
@@ -49,9 +50,9 @@ __device__ void visitVertex(int toVisit, int destination , Stack* path, int* vis
 
 __global__ void beginVisting(PathsContainer* d_outputs, int* d_matrix, config_t d_config) {
 	int tid = blockIdx.x*blockDim.x + threadIdx.x;
-	int count = d_config.verticesCount;
+	int count = d_config.matrixSize;
 
-	if (tid < d_config.verticesCount)
+	if (tid < d_config.matrixSize)
 	{
 		// Preparing shared memory
 		/*extern __shared__ int* sd_matrix;
@@ -81,15 +82,15 @@ __global__ void beginVisting(PathsContainer* d_outputs, int* d_matrix, config_t 
 
 __global__ void getOutputSize(PathsContainer* d_outputs, int* outputSize, config_t d_config) {
 	*outputSize = 0;
-	for (int i = 0; i < d_config.verticesCount; i++)
+	for (int i = 0; i < d_config.matrixSize; i++)
 	{
 		*outputSize += d_outputs[i].size;
 	}
 }
 
-__global__ void transferOutputs (int* cycles, PathsContainer* d_outputs, config_t config) {
+__global__ void transferOutputs(int* cycles, PathsContainer* d_outputs, config_t config) {
 	int offset = 0;
-	for (int i = 0; i < config.verticesCount; i++)
+	for (int i = 0; i < config.matrixSize; i++)
 	{
 		memcpy(&cycles[offset], d_outputs[i].paths, d_outputs[i].size * sizeof(*cycles));
 		offset += d_outputs[i].size;
@@ -119,7 +120,7 @@ std::list<std::vector<int>> convertToList(int* mergedCycles, int count) {
 			tmp = new std::vector<int>();
 
 			if (i + 1 < count) {
-				head = mergedCycles[i+1];
+				head = mergedCycles[i + 1];
 				tmp->push_back(head);
 				i++;
 			}
@@ -133,13 +134,13 @@ std::list<std::vector<int>> findCycles(int* matrix, config_t config) {
 	// Data preparation
 	PathsContainer* d_outputs;
 	int* d_matrix;
-	int matrixSize = config.verticesCount * config.verticesCount * sizeof(*matrix);
+	int matrixSize = config.matrixSize * config.matrixSize * sizeof(*matrix);
 	gpuErrchk(cudaMalloc(&d_matrix, matrixSize));
 	gpuErrchk(cudaMemcpy(d_matrix, matrix, matrixSize, cudaMemcpyHostToDevice));
-	gpuErrchk(cudaMalloc(&d_outputs, config.verticesCount * sizeof(PathsContainer)));
+	gpuErrchk(cudaMalloc(&d_outputs, config.matrixSize * sizeof(PathsContainer)));
 
 	// Calculations
-	beginVisting << <(config.verticesCount + 255) / 256, 256>> > (d_outputs, d_matrix, config);
+	beginVisting << <(config.matrixSize + 255) / 256, 256 >> > (d_outputs, d_matrix, config);
 	gpuErrchk(cudaPeekAtLastError());
 	gpuErrchk(cudaDeviceSynchronize());
 
@@ -147,7 +148,7 @@ std::list<std::vector<int>> findCycles(int* matrix, config_t config) {
 	int* d_outputSize;
 	gpuErrchk(cudaMalloc(&d_outputSize, sizeof(int)));
 
-	getOutputSize<<<1,1>>>(d_outputs, d_outputSize, config);
+	getOutputSize << <1, 1 >> > (d_outputs, d_outputSize, config);
 	gpuErrchk(cudaPeekAtLastError());
 	gpuErrchk(cudaDeviceSynchronize());
 
@@ -179,6 +180,6 @@ std::list<std::vector<int>> findCycles(int* matrix, config_t config) {
 
 	free(mergedCycles);
 	free(outputSize);
-	
+
 	return cycles;
 }

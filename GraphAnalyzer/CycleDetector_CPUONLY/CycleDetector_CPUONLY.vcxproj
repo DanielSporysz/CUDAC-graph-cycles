@@ -19,20 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Graph IO Utilities\GraphReader.cpp" />
     <ClCompile Include="Analyzer.cpp" />
     <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="GraphReader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Graph IO Utilities\GraphReader.h" />
     <ClInclude Include="Analyzer.h" />
     <ClInclude Include="Controller.h" />
-    <ClInclude Include="GraphReader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{1E3B699E-B42C-4E97-823F-E360A053F633}</ProjectGuid>
     <RootNamespace>CycleDetectorCPUONLY</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectName>CPU CycleDetector</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

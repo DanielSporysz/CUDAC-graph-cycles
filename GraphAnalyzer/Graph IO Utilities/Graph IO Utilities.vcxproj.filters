@@ -9,15 +9,15 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{e698737e-df61-46f8-bb09-f420166829e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Controller.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GraphReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Analyzer.cpp">
+    <ClCompile Include="controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -25,11 +25,10 @@
     <ClInclude Include="GraphReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Analyzer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\GraphFileTemplate.txt">
+      <Filter>Resources</Filter>
+    </Text>
   </ItemGroup>
 </Project>
