@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Graph IO Utilities\GraphGenerator.cpp" />
     <ClCompile Include="..\Graph IO Utilities\GraphReader.cpp" />
     <ClCompile Include="Analyzer.cpp" />
     <ClCompile Include="Controller.cpp" />

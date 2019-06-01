@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CudaCompile Include="controller.cu">
+    <CudaCompile Include="cudaAnalyzer.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
-    <CudaCompile Include="cudaAnalyzer.cu">
+    <CudaCompile Include="controller.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
   </ItemGroup>
@@ -25,12 +25,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Analyzer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="cudaAnalyzer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -43,9 +37,15 @@
     <ClInclude Include="..\Graph IO Utilities\GraphReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Graph IO Utilities\GraphReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graph IO Utilities\GraphGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

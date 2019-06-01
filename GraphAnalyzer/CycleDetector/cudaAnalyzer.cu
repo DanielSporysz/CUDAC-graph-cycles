@@ -3,16 +3,17 @@
 #include <cuda_runtime_api.h>
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
-#include"cudaAnalyzer.h"
 
 #include <iostream>
+#include <list>
+#include <vector>
 
 #include "../Graph IO Utilities/GraphReader.h"
-#include "vector"
-#include "list"
+
+#include"cudaAnalyzer.h"
 #include "stack.h"
 #include "PathsContainer.h"
-#include "analyzer.h"
+
 
 #define gpuErrchk(ans) { gpuAssert((ans), __FILE__, __LINE__); }
 inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort = true)
@@ -69,7 +70,6 @@ __global__ void beginVisting(PathsContainer* d_outputs, int* d_matrix, config_t 
 		}
 
 		Stack path;
-		d_outputs[tid] = *(PathsContainer*)malloc(sizeof(PathsContainer));
 		new(&d_outputs[tid]) PathsContainer;
 
 		// Analysis
@@ -97,10 +97,13 @@ __global__ void transferOutputs(int* cycles, PathsContainer* d_outputs, config_t
 	}
 }
 
-__global__ void freePathsContainers(PathsContainer* d_outputs, int* count) {
-	for (int i = 0; i < *count; i++)
+__global__ void freePathsContainers(PathsContainer* d_outputs, int count) {
+	for (int i = 0; i < count; i++)
 	{
-		free(&d_outputs[i]);
+		if (&d_outputs[i] != NULL) {
+			delete &d_outputs[i];
+		}
+
 	}
 }
 
@@ -140,7 +143,7 @@ std::list<std::vector<int>> findCycles(int* matrix, config_t config) {
 	gpuErrchk(cudaMalloc(&d_outputs, config.matrixSize * sizeof(PathsContainer)));
 
 	// Calculations
-	beginVisting << <(config.matrixSize + 255) / 256, 256 >> > (d_outputs, d_matrix, config);
+	beginVisting << <(config.matrixSize + 255) / 256, 256>> > (d_outputs, d_matrix, config);
 	gpuErrchk(cudaPeekAtLastError());
 	gpuErrchk(cudaDeviceSynchronize());
 
@@ -172,7 +175,7 @@ std::list<std::vector<int>> findCycles(int* matrix, config_t config) {
 	// Clean up
 	gpuErrchk(cudaFree(d_matrix));
 	gpuErrchk(cudaFree(d_cycles));
-	freePathsContainers << <1, 1 >> > (d_outputs, d_outputSize);
+	//freePathsContainers << <1, 1 >> > (d_outputs, config.matrixSize);
 	gpuErrchk(cudaPeekAtLastError());
 	gpuErrchk(cudaDeviceSynchronize());
 	gpuErrchk(cudaFree(d_outputSize));

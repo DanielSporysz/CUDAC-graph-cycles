@@ -57,7 +57,7 @@ config_t* readGraphFile(std::string fileName) {
 }
 
 void printMatrix(config_t *config) {
-	std::cout << "File " << *config->fileName << " contains the matrix of " << config->matrixSize << " verticles." << std::endl;
+	std::cout << "File \"" << *config->fileName << "\" contains the matrix of " << config->matrixSize << " verticles." << std::endl;
 
 	for (int i = 0; i < config->matrixSize; i++) {
 		for (int j = 0; j < config->matrixSize; j++)

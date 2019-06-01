@@ -4,9 +4,12 @@
 #include <array>
 #include <list>
 #include <vector>
+#include <chrono>
+
 #include "../Graph IO Utilities/GraphReader.h"
 #include "controller.h"
 #include "cudaAnalyzer.h"
+
 
 void printCycles(std::list<std::vector<int>> cycles) {
 	for (std::vector<int> cycle : cycles) {
@@ -18,7 +21,28 @@ void printCycles(std::list<std::vector<int>> cycles) {
 	}
 }
 
-int main(int argc, char *argv[]) {
+void performanceTest(int startingSize, int maximumSize, int step) {
+	config_t* config = genGraph(7, 1);
+	printMatrix(config);
+	std::list<std::vector<int>> cycles;
+
+
+	// Evaluation
+	auto start = std::chrono::high_resolution_clock::now();
+	cycles = findCycles(config->matrix, *config);
+	auto end = std::chrono::high_resolution_clock::now();
+
+	// Print
+	float time = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+	std::cout << "Time elapsed: " << time << std::endl;
+
+	// clean up
+	delete config->fileName;
+	free(config->matrix);
+	free(config);
+}
+
+void performanceTest2(int startingSize, int maximumSize, int step) {
 	// Confugration
 	std::string defaultFileName = "./Resources/GraphFileTemplate.txt";;
 
@@ -38,5 +62,10 @@ int main(int argc, char *argv[]) {
 	delete config->fileName;
 	free(config->matrix);
 	free(config);
+}
+
+int main(int argc, char *argv[]) {
+	performanceTest(0,0,0);
+	performanceTest2(0,0,0);
 	return 0;
 }

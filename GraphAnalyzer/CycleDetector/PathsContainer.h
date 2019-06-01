@@ -13,7 +13,9 @@ public:
 	}
 
 	__device__ ~PathsContainer() {
-		free(paths);
+		/*if (paths != NULL) {
+			free(paths);
+		}*/
 	}
 
 	__device__ void addPath(int* pathToAdd, int sizeToAdd) {

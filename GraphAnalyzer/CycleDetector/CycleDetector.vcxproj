@@ -85,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Graph IO Utilities\GraphReader.h" />
-    <ClInclude Include="Analyzer.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="cudaAnalyzer.h" />
     <ClInclude Include="PathsContainer.h" />
@@ -95,6 +94,7 @@
     <Text Include="Resources\GraphFileTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Graph IO Utilities\GraphGenerator.cpp" />
     <ClCompile Include="..\Graph IO Utilities\GraphReader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

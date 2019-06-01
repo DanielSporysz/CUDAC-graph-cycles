@@ -15,3 +15,5 @@ enum markings
 
 config_t* readGraphFile(std::string fileName);
 void printMatrix(config_t *config);
+
+config_t* genGraph(int size, float probabilityOfConnection);
