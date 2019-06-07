@@ -42,7 +42,7 @@ void performanceTest(int startingSize, int maximumSize, int step) {
 
 	// Print
 	float time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-	std::cout << "Time elapsed: " << time << " microseconds." << std::endl;
+	std::cout << "Time elapsed: " << time << " milliseconds." << std::endl;
 
 	// Results output
 	std::cout << "The graph contains " << cycles.size() << " cycles." << std::endl;

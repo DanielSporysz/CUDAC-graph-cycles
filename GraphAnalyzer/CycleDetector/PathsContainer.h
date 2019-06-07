@@ -26,6 +26,7 @@ public:
 	__device__ void addPath(int* pathToAdd, int sizeToAdd) {
 		if (sizeToAdd + count >= stackSize) {
 			int *largerPaths = (int*)malloc(2 * stackSize * sizeof *paths);
+			
 			memcpy(largerPaths, paths, stackSize * sizeof *paths);
 			free(paths);
 			paths = largerPaths;

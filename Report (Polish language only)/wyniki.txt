@@ -1,0 +1,56 @@
+cpu:
+10x10
+Time elapsed: 8936 milliseconds.
+The graph contains 9864100 cycles.
+Time elapsed: 8886 milliseconds.
+The graph contains 9864100 cycles.
+9x9
+Time elapsed: 846 milliseconds.
+The graph contains 986409 cycles.
+8x8
+Time elapsed: 85 milliseconds.
+The graph contains 109600 cycles.
+7x7
+Time elapsed: 10 milliseconds.
+The graph contains 13699 cycles.
+6x6
+Time elapsed: 1570 microseconds.
+The graph contains 1956 cycles.
+5x5
+Time elapsed: 268 microseconds.
+The graph contains 325 cycles.
+4x4
+Time elapsed: 60 microseconds.
+The graph contains 64 cycles.
+3x3
+Time elapsed: 15 microseconds.
+The graph contains 15 cycles.
+2x2
+Time elapsed: 3900 nanoseconds.
+The graph contains 4 cycles.
+1x1
+Time elapsed: 1600 nanoseconds.
+The graph contains 1 cycles.
+GPU:
+
+7x7
+Time elapsed: 913 milliseconds.
+The graph contains 13699 cycles.
+6x6s
+Time elapsed: 429 milliseconds.
+The graph contains 1956 cycles.
+5x5
+Time elapsed: 361 milliseconds.
+The graph contains 325 cycles.
+4x4
+Time elapsed: 317 milliseconds.
+The graph contains 64 cycles.
+3x3
+Time elapsed: 322 milliseconds.
+The graph contains 15 cycles.
+2x2
+Time elapsed: 317 milliseconds.
+The graph contains 4 cycles.
+1x1
+Time elapsed: 318 milliseconds.
+The graph contains 1 cycles.
