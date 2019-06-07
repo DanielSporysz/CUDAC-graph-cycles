@@ -3,6 +3,7 @@
 #include <cuda_runtime_api.h>
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
+#include <device_functions.h>
 
 #include <iostream>
 #include <list>
@@ -55,14 +56,6 @@ __global__ void beginVisting(PathsContainer* d_outputs, int* d_matrix, config_t 
 
 	if (tid < d_config.matrixSize)
 	{
-		// Preparing shared memory
-		/*extern __shared__ int* sd_matrix;
-		for (int i = 0; i < count; i++)
-		{
-			sd_matrix[tid*count + i] = d_matrix[tid*count + i];
-		}
-		__syncthreads();*/
-
 		// PreAnalysis data preparations
 		int* visitedVerticles = (int*)malloc(count * sizeof(int));
 		for (int i = 0; i < count; i++) {
@@ -84,7 +77,7 @@ __global__ void getOutputSize(PathsContainer* d_outputs, int* outputSize, config
 	*outputSize = 0;
 	for (int i = 0; i < d_config.matrixSize; i++)
 	{
-		*outputSize += d_outputs[i].size;
+		*outputSize += d_outputs[i].count;
 	}
 }
 
@@ -92,8 +85,8 @@ __global__ void transferOutputs(int* cycles, PathsContainer* d_outputs, config_t
 	int offset = 0;
 	for (int i = 0; i < config.matrixSize; i++)
 	{
-		memcpy(&cycles[offset], d_outputs[i].paths, d_outputs[i].size * sizeof(*cycles));
-		offset += d_outputs[i].size;
+		memcpy(&cycles[offset], d_outputs[i].paths, d_outputs[i].count * sizeof(*cycles));
+		offset += d_outputs[i].count;
 	}
 }
 
@@ -175,7 +168,7 @@ std::list<std::vector<int>> findCycles(int* matrix, config_t config) {
 	// Clean up
 	gpuErrchk(cudaFree(d_matrix));
 	gpuErrchk(cudaFree(d_cycles));
-	//freePathsContainers << <1, 1 >> > (d_outputs, config.matrixSize);
+	freePathsContainers << <1, 1 >> > (d_outputs, config.matrixSize);
 	gpuErrchk(cudaPeekAtLastError());
 	gpuErrchk(cudaDeviceSynchronize());
 	gpuErrchk(cudaFree(d_outputSize));

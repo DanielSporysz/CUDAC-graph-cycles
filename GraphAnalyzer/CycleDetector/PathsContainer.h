@@ -4,28 +4,36 @@
 #include <iostream>
 
 class PathsContainer {
+private:
+	int defaultStackSize = 64;
 public:
 	int *paths;
-	int size;
+	int count;
+	int stackSize;
 
 	__device__ PathsContainer() {
-		size = 0;
+		count = 0;
+		paths = (int*)malloc(defaultStackSize * sizeof(int));
+		stackSize = defaultStackSize;
 	}
 
 	__device__ ~PathsContainer() {
-		/*if (paths != NULL) {
+		if (paths != NULL) {
 			free(paths);
-		}*/
+		}
 	}
 
 	__device__ void addPath(int* pathToAdd, int sizeToAdd) {
-		int* newPaths = (int*)malloc((size + sizeToAdd) * sizeof *paths);
+		if (sizeToAdd + count >= stackSize) {
+			int *largerPaths = (int*)malloc(2 * stackSize * sizeof *paths);
+			memcpy(largerPaths, paths, stackSize * sizeof *paths);
+			free(paths);
+			paths = largerPaths;
 
-		memcpy(newPaths, paths, size * sizeof *paths);
-		memcpy(&newPaths[size], pathToAdd, sizeToAdd * sizeof *paths);
+			stackSize *= 2;
+		}
 
-		free(paths);
-		paths = newPaths;
-		size += sizeToAdd;
+		memcpy(&paths[count], pathToAdd, sizeToAdd * sizeof *paths);
+		count += sizeToAdd;
 	}
 };
